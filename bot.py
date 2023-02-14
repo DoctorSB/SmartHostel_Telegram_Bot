@@ -9,6 +9,7 @@ from tgbot.handlers.user import user_router
 from tgbot.middlewares.config import ConfigMiddleware
 from tgbot.services import broadcaster
 import asyncio
+from tgbot.users_logging.logging import check_file
 
 
 logger = logging.getLogger(__name__)
@@ -21,6 +22,7 @@ async def on_startup(bot: Bot, admin_ids: list[int]):
 def register_global_middlewares(dp: Dispatcher, config):
     dp.message.outer_middleware(ConfigMiddleware(config))
     dp.callback_query.outer_middleware(ConfigMiddleware(config))
+
 
 
 async def main():
@@ -43,6 +45,7 @@ async def main():
         dp.include_router(router)
 
     register_global_middlewares(dp, config)
+    
 
     await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)

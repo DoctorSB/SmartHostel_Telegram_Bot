@@ -7,7 +7,6 @@ class Menu(StatesGroup):
     sushechka = State()
     stiralka = State()
     floor = State()
-    instr = State()
     mode = State()
     in_progress = State()
     finish = State()

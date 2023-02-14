@@ -1,22 +1,12 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-menu_buttons = [
-
-        [InlineKeyboardButton(callback_data='stiralka', text='Стиралки')],
-        [InlineKeyboardButton(callback_data='sushilka', text='Сушилки')],
-        [InlineKeyboardButton(callback_data='instr', text='Инструкция')]
-]
-menu_keyboard = InlineKeyboardMarkup(inline_keyboard=menu_buttons)
-
 floor_buttons = [
-    [
-        InlineKeyboardButton(callback_data='1', text='1'),
-        InlineKeyboardButton(callback_data='2', text='2'),
-        InlineKeyboardButton(callback_data='3', text='3')
-    ],
-    [InlineKeyboardButton(text="Назад", callback_data="back")]
-]
+    [InlineKeyboardButton(callback_data='1', text='1')],
+    [InlineKeyboardButton(callback_data='2', text='2')],
+    [InlineKeyboardButton(callback_data='3', text='3')]
+    ]
+
 floor_keyboard = InlineKeyboardMarkup(inline_keyboard=floor_buttons)
 
 mash_buttons = [
