@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 async def on_startup(bot: Bot, admin_ids: list[int]):
-    await broadcaster.broadcast(bot, admin_ids, "Бот був запущений")
+    await broadcaster.broadcast(bot, admin_ids, "Бот был запущен!")
 
 
 def register_global_middlewares(dp: Dispatcher, config):
@@ -46,7 +46,7 @@ async def main():
 
     register_global_middlewares(dp, config)
     
-
+    await check_file()
     await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)
 
@@ -55,4 +55,4 @@ if __name__ == '__main__':
     try:
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
-        logger.error("Бот був вимкнений!")
+        logger.error("Бот был отключен!")
