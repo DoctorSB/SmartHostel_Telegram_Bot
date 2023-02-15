@@ -10,13 +10,14 @@ floor_buttons = [
 floor_keyboard = InlineKeyboardMarkup(inline_keyboard=floor_buttons)
 
 mash_buttons = [
-    [
-        InlineKeyboardButton(callback_data='mash1', text='🟢'),
-        InlineKeyboardButton(callback_data='mash2', text='🟢'),
-        InlineKeyboardButton(callback_data='mash3', text='🟢')
-    ],
-    [InlineKeyboardButton(text="Назад", callback_data="back")]
-]
+                [
+                    InlineKeyboardButton(callback_data='mash1', text='🟢'),
+                    InlineKeyboardButton(callback_data='mash2', text='🟢'),
+                    InlineKeyboardButton(callback_data='mash3', text='🟢')
+                ],
+                [InlineKeyboardButton(text="Назад", callback_data="back")]
+            ]
+
 mash_keyboard = InlineKeyboardMarkup(inline_keyboard=mash_buttons)
 
 mode_buttons = [
@@ -27,4 +28,4 @@ mode_buttons = [
     ],
     [InlineKeyboardButton(text="Назад", callback_data="back")]
 ]
-mode_keyboard = InlineKeyboardMarkup(inline_keyboard=mode_buttons)
+mode_keyboard= InlineKeyboardMarkup(inline_keyboard=mode_buttons)
