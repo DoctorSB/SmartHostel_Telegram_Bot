@@ -16,24 +16,4 @@ class user_log():
         self.finish_time = finish_time
         self.progress = progress
 
-    def write_to_json(self):
-        today = datetime.datetime.now().strftime("%Y-%m-%d")
-        with open(f'{today}_log.json', 'r') as f:
-            data = json.load(f)
-        data[self.user_id] = {'floor': self.floor, 'car_number': self.mash, 'mode': self.mode,
-                              'time': self.time, 'finish_time': self.finish_time, 'progress': self.progress}
-        with open(f'{today}_log.json', 'w') as f:
-            json.dump(data, f)
 
-    def read_from_json(self):
-        today = datetime.datetime.now().strftime("%Y-%m-%d")
-        with open(f'{today}_log.json', 'r') as f:
-            data = json.load(f)
-        return data[self.user_id]
-
-    def check_file(self):
-        today = datetime.datetime.now().strftime("%Y-%m-%d")
-        if f'{today}_log.json' not in os.listdir():
-            create_new_json()
-        else:
-            pass

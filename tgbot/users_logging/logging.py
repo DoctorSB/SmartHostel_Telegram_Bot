@@ -8,7 +8,7 @@ import asyncio
 def create_new_json():
     today = datetime.datetime.now().strftime("%Y-%m-%d")
     with open(f'{today}_log.json', 'w') as f:
-        json.dump({}, f)
+        json.dump(f)
 
 
 def write_to_json(user_id, floor, car_number, mode, time, finish_time, progress):
