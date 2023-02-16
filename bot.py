@@ -46,7 +46,6 @@ async def main():
 
     register_global_middlewares(dp, config)
     
-    await check_file()
     await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)
 
