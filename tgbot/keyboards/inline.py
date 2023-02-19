@@ -36,10 +36,15 @@ def create_rent_keyboard(mash_number, floor_number):
         text="Назад", callback_data="back")]]
     with open('active.json', 'r') as f:
         active = json.load(f)
+    keys = list(active.keys())
     name = f'{floor_number}.{mash_number}'
     for i in range(1, 4):
         text = '🟢'
         cb = f'mash{i}'
+        for j in keys:
+            if active[j]['progress'] == True and active[j]['floor'] == floor_number and active[j]['mash'] == cb:
+                text = '🔴'
+                cb = f'cancel{i}'
         if active[name]['progress'] == True and active[name]['mash'] == cb:
             text = '🔴'
             cb = f'cancel{i}'

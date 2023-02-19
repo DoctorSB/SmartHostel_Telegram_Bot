@@ -133,8 +133,3 @@ async def user_callback1(query, state: FSMContext):
 @user_router.callback_query(F.data == 'back')
 async def user_callback1(query, state: FSMContext):
     await query.message.edit_text('Выбери этаж', reply_markup=floor_keyboard)
-    logging_info.floor = None
-    logging_info.mode = None
-    logging_info.time = None
-    logging_info.mash = 'mash4'
-    logging_info.finish_time = None

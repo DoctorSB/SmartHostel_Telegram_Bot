@@ -4,17 +4,8 @@
         "floor": "1",
         "mash": "mash1",
         "mode": "mode1",
-        "time": "19-02-2023 18:23",
-        "finish_time": "19-02-2023 18:28",
-        "progress": true
-    },
-    "1.mash2": {
-        "user_id": 706443088,
-        "floor": "1",
-        "mash": "mash2",
-        "mode": "mode1",
-        "time": "19-02-2023 18:17",
-        "finish_time": "19-02-2023 18:22",
+        "time": "19-02-2023 20:34",
+        "finish_time": "19-02-2023 20:39",
         "progress": true
     },
     "1.mash3": {
@@ -22,26 +13,17 @@
         "floor": "1",
         "mash": "mash3",
         "mode": "mode1",
-        "time": "19-02-2023 18:23",
-        "finish_time": "19-02-2023 18:28",
+        "time": "19-02-2023 20:34",
+        "finish_time": "19-02-2023 20:39",
         "progress": true
     },
-    "3.mash1": {
+    "2.mash2": {
         "user_id": 706443088,
-        "floor": "3",
-        "mash": "mash1",
-        "mode": "mode3",
-        "time": "19-02-2023 18:23",
-        "finish_time": "19-02-2023 18:28",
-        "progress": true
-    },
-    "3.mash3": {
-        "user_id": 706443088,
-        "floor": "3",
-        "mash": "mash3",
-        "mode": "mode2",
-        "time": "19-02-2023 18:24",
-        "finish_time": "19-02-2023 18:29",
+        "floor": "2",
+        "mash": "mash2",
+        "mode": "mode1",
+        "time": "19-02-2023 20:34",
+        "finish_time": "19-02-2023 20:39",
         "progress": true
     }
 }
