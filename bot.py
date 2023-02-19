@@ -9,7 +9,6 @@ from tgbot.handlers.user import user_router
 from tgbot.middlewares.config import ConfigMiddleware
 from tgbot.services import broadcaster
 import asyncio
-from tgbot.users_logging.logging import check_file
 
 
 logger = logging.getLogger(__name__)
