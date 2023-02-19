@@ -23,7 +23,6 @@ def register_global_middlewares(dp: Dispatcher, config):
     dp.callback_query.outer_middleware(ConfigMiddleware(config))
 
 
-
 async def main():
     logging.basicConfig(
         level=logging.INFO,
@@ -44,7 +43,7 @@ async def main():
         dp.include_router(router)
 
     register_global_middlewares(dp, config)
-    
+
     await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)
 
