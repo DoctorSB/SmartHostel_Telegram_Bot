@@ -7,5 +7,3 @@ class user_log():
         self.time = time
         self.finish_time = finish_time
         self.progress = progress
-
-
