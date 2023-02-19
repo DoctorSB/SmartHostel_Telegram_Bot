@@ -1,30 +1,26 @@
-# каждый день создается новый файл с логами
-import datetime
 import json
 import os
-import asyncio
 
 
-def create_new_json():
-    # создаем новый файл с логами
-    today = datetime.datetime.now().strftime("%Y-%m-%d")
-    with open(f'{today}_log.json', 'w') as f:
-        json.dump({}, f)
+def create_new_json(user_inf, key):
+    with open('active.json', 'w') as f:
+        json.dump({key: user_inf}, f, indent=4)
 
 
-def write_to_json(user_id, floor, car_number, mode, time):
-    today = datetime.datetime.now().strftime("%Y-%m-%d")
-    with open(f'{today}_log.json', 'r') as f:
-        data = json.load(f)
-    data[user_id] = {'floor': floor,
-                     'car_number': car_number, 'mode': mode, 'time': time}
-    with open(f'{today}_log.json', 'w') as f:
-        json.dump(data, f)
+def write_to_json(user_id, floor, mash, mode, time, finish_time, progress):
+    data = {'user_id': user_id, 'floor': floor, 'mash': mash, 'mode': mode,
+            'time': time, 'finish_time': finish_time, 'progress': progress}
+    key = f'{floor}.{mash}'
+    if check_file(data, key):
+        with open('active.json', 'r') as f:
+            pepe = json.load(f)
+        pepe[key] = data
+        with open('active.json', 'w') as f:
+            json.dump(pepe, f, indent=4)
 
 
-async def check_file():
-    today = datetime.datetime.now().strftime("%Y-%m-%d")
-    if f'{today}_log.json' not in os.listdir():
-        create_new_json()
+def check_file(user_inf, key):
+    if 'active.json' not in os.listdir():
+        create_new_json(user_inf, key)
     else:
-        pass
+        return 1
