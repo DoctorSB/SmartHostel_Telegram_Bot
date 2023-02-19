@@ -1,7 +1,6 @@
 from aiogram import Router, F
 from aiogram.types import Message
 from tgbot.keyboards.inline import floor_keyboard, mode_keyboard, mash_keyboard, create_rent_keyboard
-from tgbot.misc.states import Menu
 from aiogram.fsm.context import FSMContext
 import asyncio
 from aiogram.filters.command import Command
