@@ -58,6 +58,7 @@ async def user_callback1(query, state: FSMContext):
     await query.message.edit_text('Выбери режим стирки')
     logging_info.mash = query.data
     await query.message.edit_reply_markup(reply_markup=mode_keyboard)
+    
 
 
 @user_router.callback_query(F.data == 'mash2')
@@ -85,7 +86,8 @@ async def user_callback1(query, state: FSMContext):
     write_to_json(logging_info.id, logging_info.floor,
                   logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress)
     await query.message.edit_text('В процессе')
-    await asyncio.sleep(1800)
+    
+    await asyncio.sleep(1)
     logging_info.progress = False
     write_to_json(logging_info.id, logging_info.floor,
                   logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress)
@@ -103,7 +105,13 @@ async def user_callback1(query, state: FSMContext):
     write_to_json(logging_info.id, logging_info.floor,
                   logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress)
     await query.message.edit_text('В процессе')
-    await asyncio.sleep(2700)
+    while time.strftime("%d-%m-%Y %H:%M") < logging_info.finish_time:
+        await asyncio.sleep(60)
+        time = datetime.datetime.now()
+        #отправить новое сообщение о том что стирка готова
+        
+        
+
     logging_info.progress = False
     write_to_json(logging_info.id, logging_info.floor,
                   logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress)

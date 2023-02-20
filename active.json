@@ -4,26 +4,8 @@
         "floor": "1",
         "mash": "mash1",
         "mode": "mode1",
-        "time": "19-02-2023 20:34",
-        "finish_time": "19-02-2023 20:39",
-        "progress": true
-    },
-    "1.mash3": {
-        "user_id": 706443088,
-        "floor": "1",
-        "mash": "mash3",
-        "mode": "mode1",
-        "time": "19-02-2023 20:34",
-        "finish_time": "19-02-2023 20:39",
-        "progress": true
-    },
-    "2.mash2": {
-        "user_id": 706443088,
-        "floor": "2",
-        "mash": "mash2",
-        "mode": "mode1",
-        "time": "19-02-2023 20:34",
-        "finish_time": "19-02-2023 20:39",
+        "time": "19-02-2023 23:37",
+        "finish_time": "19-02-2023 23:42",
         "progress": true
     }
 }

@@ -8,6 +8,7 @@ from tgbot.handlers.echo import echo_router
 from tgbot.handlers.user import user_router
 from tgbot.middlewares.config import ConfigMiddleware
 from tgbot.services import broadcaster
+from tgbot.users_logging.logging import delete_json
 import asyncio
 
 
@@ -43,7 +44,7 @@ async def main():
         dp.include_router(router)
 
     register_global_middlewares(dp, config)
-
+    delete_json()
     await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)
 
