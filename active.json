@@ -3,18 +3,9 @@
         "user_id": 706443088,
         "floor": "1",
         "mash": "mash1",
-        "mode": "mode1",
-        "time": "23-02-2023 23:53",
-        "finish_time": "24-02-2023 01:33",
-        "progress": true
-    },
-    "1.mash2": {
-        "user_id": 706443088,
-        "floor": "1",
-        "mash": "mash2",
-        "mode": "mode3",
-        "time": "23-02-2023 23:53",
-        "finish_time": "24-02-2023 01:28",
+        "mode": "mode17",
+        "time": "26-02-2023 04:34",
+        "finish_time": "26-02-2023 10:34",
         "progress": true
     }
 }
