@@ -7,9 +7,10 @@ def create_new_json(user_inf, key):
     with open('active.json', 'w') as f:
         json.dump({key: user_inf}, f, indent=4)
 
-def write_to_json(user_id, floor, mash, mode, time, finish_time, progress):
+
+def write_to_json(user_id, floor, mash, mode, time, finish_time, progress, sushu):
     data = {'user_id': user_id, 'floor': floor, 'mash': mash, 'mode': mode,
-            'time': time, 'finish_time': finish_time, 'progress': progress}
+            'time': time, 'finish_time': finish_time, 'progress': progress, 'sushu': sushu}
     key = f'{floor}.{mash}'
     if check_file(data, key):
         with open('active.json', 'r') as f:

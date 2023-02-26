@@ -51,8 +51,10 @@ mode_dict = {
     'mode17': '3',
 }
 
+
 def sush_time_choosing(time):
     return int(sush_time[time])
+
 
 def mode_chooshing(mode):
     return int(mode_dict[mode])
@@ -133,7 +135,7 @@ async def user_callback1(query, state: FSMContext):
     logging_info.finish_time = finish.strftime("%d-%m-%Y %H:%M")
     logging_info.progress = True
     write_to_json(logging_info.id, logging_info.floor,
-                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress)
+                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
     await query.message.edit_text('В процессе')
     while time.strftime("%d-%m-%Y %H:%M") < logging_info.finish_time:
         time = datetime.datetime.now()
@@ -143,7 +145,7 @@ async def user_callback1(query, state: FSMContext):
         await asyncio.sleep(30)
     logging_info.progress = False
     write_to_json(logging_info.id, logging_info.floor,
-                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress)
+                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
     await query.message.answer('Твое белье уже ждет тебя!', reply_markup=restart_keyboard)
 
 
@@ -170,13 +172,14 @@ async def user_message(message: Message, state: FSMContext):
 async def user_callback1(query, state: FSMContext):
     ht = 0
     time = datetime.datetime.now()
-    finish = datetime.datetime.now() + datetime.timedelta(minutes=sush_time_choosing(query.data))
+    finish = datetime.datetime.now(
+    ) + datetime.timedelta(minutes=sush_time_choosing(query.data))
     five_minutes = finish - datetime.timedelta(minutes=30)
     logging_info.time = time.strftime("%d-%m-%Y %H:%M")
     logging_info.finish_time = finish.strftime("%d-%m-%Y %H:%M")
-    logging_info.progress = True
+    logging_info.sushu = True
     write_to_json(logging_info.id, logging_info.floor,
-                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress)
+                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
     await query.message.edit_text('Сушусь')
     while time.strftime("%d-%m-%Y %H:%M") < logging_info.finish_time:
         time = datetime.datetime.now()
@@ -184,7 +187,7 @@ async def user_callback1(query, state: FSMContext):
             ht = 1
             await query.message.reply('Через 30 минут твое белье будет готово!')
         await asyncio.sleep(600)
-    logging_info.progress = False
+    logging_info.sushu = False
     write_to_json(logging_info.id, logging_info.floor,
-                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress)
+                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
     await query.message.answer('Твое белье уже ждет тебя!', reply_markup=restart_keyboard)

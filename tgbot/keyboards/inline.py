@@ -77,6 +77,7 @@ def create_rent_keyboard(mash_number, floor_number):
     rent_keyboard = InlineKeyboardMarkup(inline_keyboard=rent_buttons)
     return rent_keyboard
 
+
 sushilki_buttons = [
     [
         InlineKeyboardButton(callback_data='hours6', text='6 часов'),
