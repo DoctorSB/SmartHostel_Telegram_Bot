@@ -51,8 +51,10 @@ mode_dict = {
     'mode17': '3',
 }
 
+
 def sush_time_choosing(time):
     return int(sush_time[time])
+
 
 def mode_chooshing(mode):
     return int(mode_dict[mode])
@@ -170,7 +172,8 @@ async def user_message(message: Message, state: FSMContext):
 async def user_callback1(query, state: FSMContext):
     ht = 0
     time = datetime.datetime.now()
-    finish = datetime.datetime.now() + datetime.timedelta(minutes=sush_time_choosing(query.data))
+    finish = datetime.datetime.now(
+    ) + datetime.timedelta(minutes=sush_time_choosing(query.data))
     five_minutes = finish - datetime.timedelta(minutes=30)
     logging_info.time = time.strftime("%d-%m-%Y %H:%M")
     logging_info.finish_time = finish.strftime("%d-%m-%Y %H:%M")
