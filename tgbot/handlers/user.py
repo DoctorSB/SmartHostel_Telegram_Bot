@@ -51,6 +51,8 @@ mode_dict = {
     'mode17': '3',
 }
 
+floor_numbers = ['1', '2', '3']
+
 
 def sush_time_choosing(time):
     return int(sush_time[time])
@@ -70,7 +72,7 @@ async def user_start(message: Message, state: FSMContext):
 # обработка inline кнопок и изменение текста кнопки
 
 
-@user_router.callback_query(F.data == '1')
+@user_router.callback_query(F.data.in_(floor_numbers))
 async def user_callback1(query, state: FSMContext):
     await query.message.edit_text('Выбери стиральную машинку')
     logging_info.floor = query.data
@@ -79,26 +81,6 @@ async def user_callback1(query, state: FSMContext):
     except:
         await query.message.edit_reply_markup(reply_markup=mash_keyboard)
         print(logging_info.mash, logging_info.floor)
-
-
-@user_router.callback_query(F.data == '2')
-async def user_callback1(query, state: FSMContext):
-    await query.message.edit_text('Выбери стиральную машинку')
-    logging_info.floor = query.data
-    try:
-        await query.message.edit_reply_markup(reply_markup=create_rent_keyboard(logging_info.mash, logging_info.floor))
-    except:
-        await query.message.edit_reply_markup(reply_markup=mash_keyboard)
-
-
-@user_router.callback_query(F.data == '3')
-async def user_callback1(query, state: FSMContext):
-    await query.message.edit_text('Выбери стиральную машинку')
-    logging_info.floor = query.data
-    try:
-        await query.message.edit_reply_markup(reply_markup=create_rent_keyboard(logging_info.mash, logging_info.floor))
-    except:
-        await query.message.edit_reply_markup(reply_markup=mash_keyboard)
 
 
 # -------------------------------- ВЫБОР СТИРАЛЬНОЙ МАШИНКИ --------------------------------
