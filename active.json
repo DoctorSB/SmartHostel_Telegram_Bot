@@ -19,13 +19,13 @@
         "sushu": true
     },
     "1.mash2": {
-        "user_id": 889412608,
+        "user_id": 706443088,
         "floor": "1",
         "mash": "mash2",
         "mode": "mode17",
-        "time": "26-02-2023 22:51",
-        "finish_time": "27-02-2023 04:51",
-        "progress": false,
-        "sushu": true
+        "time": "14-04-2023 14:18",
+        "finish_time": "14-04-2023 14:21",
+        "progress": true,
+        "sushu": false
     }
 }

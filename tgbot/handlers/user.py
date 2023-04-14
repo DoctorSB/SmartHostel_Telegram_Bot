@@ -53,6 +53,8 @@ mode_dict = {
 
 floor_numbers = ['1', '2', '3']
 
+mash_numbers = ['mash1', 'mash2', 'mash3']
+
 
 def sush_time_choosing(time):
     return int(sush_time[time])
@@ -84,21 +86,7 @@ async def user_callback1(query, state: FSMContext):
 
 
 # -------------------------------- ВЫБОР СТИРАЛЬНОЙ МАШИНКИ --------------------------------
-@user_router.callback_query(F.data == 'mash1')
-async def user_callback1(query, state: FSMContext):
-    await query.message.edit_text('Выбери режим стирки')
-    logging_info.mash = query.data
-    await query.message.edit_reply_markup(reply_markup=mode_keyboard)
-
-
-@user_router.callback_query(F.data == 'mash2')
-async def user_callback1(query, state: FSMContext):
-    await query.message.edit_text('Выбери режим стирки')
-    logging_info.mash = query.data
-    await query.message.edit_reply_markup(reply_markup=mode_keyboard)
-
-
-@user_router.callback_query(F.data == 'mash3')
+@user_router.callback_query(F.data.in_(mash_numbers))
 async def user_callback1(query, state: FSMContext):
     await query.message.edit_text('Выбери режим стирки')
     logging_info.mash = query.data
