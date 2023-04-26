@@ -1,4 +1,4 @@
-class user_log():
+class Log():
     def __init__(self, user_id=0, floor=0, mash='', mode='', time='', finish_time='', progress=False, sushu=False):
         self.id = user_id
         self.floor = floor
