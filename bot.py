@@ -7,7 +7,7 @@ from tgbot.handlers.admin import admin_router
 from tgbot.handlers.user import user_router
 from tgbot.middlewares.config import ConfigMiddleware
 from tgbot.services import broadcaster
-from tgbot.users_logging.logging import delete_json
+from tgbot.models.logging import delete_json
 import asyncio
 
 

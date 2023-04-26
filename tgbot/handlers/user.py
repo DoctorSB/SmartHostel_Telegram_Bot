@@ -5,8 +5,8 @@ from tgbot.keyboards.reply import restart_keyboard
 from aiogram.fsm.context import FSMContext
 import asyncio
 from aiogram.filters.command import Command
-from tgbot.users_logging.log import user_log
-from tgbot.users_logging.logging import write_to_json
+from tgbot.models.log import Log
+from tgbot.models.logging import write_to_json
 import datetime
 from aiogram import Bot
 from tgbot.config import load_config
@@ -19,7 +19,7 @@ bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
 
 user_router = Router()
 
-logging_info = user_log()
+logging_info = Log()
 
 sush_time = {
     'hours6': '360',
@@ -104,8 +104,7 @@ async def user_callback1(query, state: FSMContext):
     logging_info.time = time.strftime("%d-%m-%Y %H:%M")
     logging_info.finish_time = finish.strftime("%d-%m-%Y %H:%M")
     logging_info.progress = True
-    write_to_json(logging_info.id, logging_info.floor,
-                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
+    write_to_json(logging_info.id, logging_info.floor, logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
     await query.message.edit_text('В процессе')
     while time.strftime("%d-%m-%Y %H:%M") < logging_info.finish_time:
         time = datetime.datetime.now()

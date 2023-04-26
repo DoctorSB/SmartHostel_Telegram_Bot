@@ -17,15 +17,5 @@
         "finish_time": "27-02-2023 00:49",
         "progress": true,
         "sushu": true
-    },
-    "1.mash2": {
-        "user_id": 706443088,
-        "floor": "1",
-        "mash": "mash2",
-        "mode": "mode17",
-        "time": "14-04-2023 14:18",
-        "finish_time": "14-04-2023 14:21",
-        "progress": true,
-        "sushu": false
     }
 }
