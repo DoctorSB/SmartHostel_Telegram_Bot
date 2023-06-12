@@ -9,29 +9,38 @@
 Следуйте инструкциям, которые предоставит бот.
 Команды бота
 
-**/help** - показать доступные команды.\
 **/start** - начать работу с ботом.
-
-## **Требования**
-
-Для запуска бота необходимы следующие зависимости:
-
-python 3.10\
-aiogram3
 
 ## **Как запустить бота**
 
-Установите зависимости, выполнив следующую команду в терминале:
-
-**pip install -U --pre aiogram**
-
 Клонируйте репозиторий:
 
-**git clone https://github.com/DoctorSB/Washer_bot.git**
+**git clone https://github.com/DoctorSB/SmartHostel_Telegram_Bot**
 
-Перейдите в директорию проекта:
+Установите зависимости, выполнив следующую команду в терминале:
+```
+python3 -m venv venv
 
-**cd your-repo**
+.\venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+Создайте файл **.env** и запишите в него следующие данные и замените их на свои:
+```
+BOT_CONTAINER_NAME=bot_container_name
+BOT_IMAGE_NAME=botimage_name
+BOT_NAME=BOT_NAME
+BOT_TOKEN=TOKEN
+ADMINS=
+USE_REDIS=False
+
+DB_USER=exampleDBUserName
+PG_PASSWORD=examplePostgresPass
+DB_PASS=exampleDBPassword
+DB_NAME=exampleDBName
+DB_HOST=127.0.0.1
+```
 
 Запустите бота:
 

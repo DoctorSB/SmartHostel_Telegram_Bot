@@ -60,8 +60,50 @@ def sush_time_choosing(time):
     return int(sush_time[time])
 
 
-def mode_chooshing(mode):
+def mode_choosing(mode):
     return int(mode_dict[mode])
+
+
+def update_logging_info(query, logging_info, finish):
+    logging_info.mode = query.data
+    logging_info.time = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
+    logging_info.finish_time = finish.strftime("%d-%m-%Y %H:%M")
+    logging_info.progress = True
+    return logging_info
+
+
+def update_sushu_logging_info(logging_info, finish):
+    logging_info.time = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
+    logging_info.finish_time = finish.strftime("%d-%m-%Y %H:%M")
+    logging_info.sushu = True
+    return logging_info
+
+
+
+async def countdown(query, finish_time):
+    ht = 0
+    finish_time_new = datetime.datetime.strptime(finish_time, "%d-%m-%Y %H:%M")
+    # five_minutes is now a datetime object
+    five_minutes = finish_time_new - datetime.timedelta(minutes=5)
+    
+    while datetime.datetime.now() < finish_time_new:
+        time = datetime.datetime.now()
+        if time >= five_minutes and ht == 0:
+            ht = 1
+            await query.message.reply('Через 5 минут твое белье будет готово!')
+        await asyncio.sleep(30)
+
+async def sushu_countdown(query, finish_time):
+    time = datetime.datetime.now()
+    finish_time_new = datetime.datetime.strptime(finish_time, "%d-%m-%Y %H:%M")
+    ht = 0
+    thirty_minutes = finish_time_new - datetime.timedelta(minutes=30)
+    while time.strftime("%d-%m-%Y %H:%M") < finish_time:
+        time = datetime.datetime.now()
+        if time.strftime("%d-%m-%Y %H:%M") >= thirty_minutes.strftime("%d-%m-%Y %H:%M") and ht == 0:
+            ht = 1
+            await query.message.reply('Через 30 минут твое белье будет готово!')
+        await asyncio.sleep(600)
 
 
 @user_router.message(Command('start'))
@@ -70,24 +112,20 @@ async def user_start(message: Message, state: FSMContext):
     await message.answer('Привет! Я чат-бот который поможет тебе не забыть о своих вещах. Выбери этаж.', reply_markup=floor_keyboard)
     logging_info.id = message.from_user.id
 
-# -------------------------------- ВЫБОР ЭТАЖА ---------------------------------------------
-# обработка inline кнопок и изменение текста кнопки
-
 
 @user_router.callback_query(F.data.in_(floor_numbers))
-async def user_callback1(query, state: FSMContext):
+async def floor_selection_callback(query, state: FSMContext):
     await query.message.edit_text('Выбери стиральную машинку')
     logging_info.floor = query.data
     try:
         await query.message.edit_reply_markup(reply_markup=create_rent_keyboard(logging_info.mash, logging_info.floor))
     except:
         await query.message.edit_reply_markup(reply_markup=mash_keyboard)
-        print(logging_info.mash, logging_info.floor)
 
 
 # -------------------------------- ВЫБОР СТИРАЛЬНОЙ МАШИНКИ --------------------------------
 @user_router.callback_query(F.data.in_(mash_numbers))
-async def user_callback1(query, state: FSMContext):
+async def сhoose_washing_mode(query, state: FSMContext):
     await query.message.edit_text('Выбери режим стирки')
     logging_info.mash = query.data
     await query.message.edit_reply_markup(reply_markup=mode_keyboard)
@@ -95,68 +133,44 @@ async def user_callback1(query, state: FSMContext):
 
 # -------------------------------- ВЫБОР РЕЖИМА СТИРКИ -------------------------------------
 @user_router.callback_query(F.data.in_(mode_dict))
-async def user_callback1(query, state: FSMContext):
-    ht = 0
-    time = datetime.datetime.now()
-    finish = datetime.datetime.now() + datetime.timedelta(minutes=mode_chooshing(query.data))
-    five_minutes = finish - datetime.timedelta(minutes=5)
-    logging_info.mode = query.data
-    logging_info.time = time.strftime("%d-%m-%Y %H:%M")
-    logging_info.finish_time = finish.strftime("%d-%m-%Y %H:%M")
-    logging_info.progress = True
-    write_to_json(logging_info.id, logging_info.floor, logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
+async def log_in_json(query, state: FSMContext):
+    finish = datetime.datetime.now() + datetime.timedelta(minutes=mode_choosing(query.data))
+    logging_info_new = update_logging_info(query, logging_info, finish)
+    write_to_json(logging_info_new)
     await query.message.edit_text('В процессе')
-    while time.strftime("%d-%m-%Y %H:%M") < logging_info.finish_time:
-        time = datetime.datetime.now()
-        if time.strftime("%d-%m-%Y %H:%M") >= five_minutes.strftime("%d-%m-%Y %H:%M") and ht == 0:
-            ht = 1
-            await query.message.reply('Через 5 минут твое белье будет готово!')
-        await asyncio.sleep(30)
-    logging_info.progress = False
-    write_to_json(logging_info.id, logging_info.floor,
-                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
+    await countdown(query, logging_info_new.finish_time)
+    logging_info_new.progress = False
+    write_to_json(logging_info_new)
     await query.message.answer('Твое белье уже ждет тебя!', reply_markup=restart_keyboard)
 
 
 # -------------------------------- КНОПКА НАЗАД --------------------------------------------
 @user_router.callback_query(F.data == 'back')
-async def user_callback1(query, state: FSMContext):
+async def cancel(query, state: FSMContext):
     await query.message.edit_text('Выбери этаж', reply_markup=floor_keyboard)
 
 
 # -------------------------------- КНОПКА ПЕРЕЗАПУСКА --------------------------------------
 @user_router.message(F.text == 'Перезапустить')
-async def user_message(message: Message, state: FSMContext):
+async def restart(message: Message, state: FSMContext):
     await message.answer('Нажми /start', reply_markup=ReplyKeyboardRemove())
 
 
 # -------------------------------- КНОПКА СУШИЛКИ --------------------------------------
 @user_router.message(F.text == 'Ставлю на сушилку')
-async def user_message(message: Message, state: FSMContext):
+async def put_on_sushilka(message: Message, state: FSMContext):
     await message.answer_sticker('CAACAgIAAxkBAAEH6Dtj-rYSMaJNEoO91OTfUItpj2SyLwACtBMAAmPqyEs25hl-KD1TMS4E', reply_markup=ReplyKeyboardRemove())
     await message.answer('Выбери время', reply_markup=sushilki_keyboard)
 
 
 @user_router.callback_query(F.data.in_(sush_time))
 async def user_callback1(query, state: FSMContext):
-    ht = 0
-    time = datetime.datetime.now()
     finish = datetime.datetime.now(
     ) + datetime.timedelta(minutes=sush_time_choosing(query.data))
-    five_minutes = finish - datetime.timedelta(minutes=30)
-    logging_info.time = time.strftime("%d-%m-%Y %H:%M")
-    logging_info.finish_time = finish.strftime("%d-%m-%Y %H:%M")
-    logging_info.sushu = True
-    write_to_json(logging_info.id, logging_info.floor,
-                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
+    logging_info_new = update_sushu_logging_info(logging_info, finish)
+    write_to_json(logging_info_new)
     await query.message.edit_text('Сушусь')
-    while time.strftime("%d-%m-%Y %H:%M") < logging_info.finish_time:
-        time = datetime.datetime.now()
-        if time.strftime("%d-%m-%Y %H:%M") >= five_minutes.strftime("%d-%m-%Y %H:%M") and ht == 0:
-            ht = 1
-            await query.message.reply('Через 30 минут твое белье будет готово!')
-        await asyncio.sleep(600)
-    logging_info.sushu = False
-    write_to_json(logging_info.id, logging_info.floor,
-                  logging_info.mash, logging_info.mode, logging_info.time, logging_info.finish_time, logging_info.progress, logging_info.sushu)
+    await sushu_countdown(query, logging_info_new.finish_time)
+    logging_info_new.sushu = False
+    write_to_json(logging_info_new)
     await query.message.answer('Твое белье уже ждет тебя!', reply_markup=restart_keyboard)
