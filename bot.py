@@ -1,5 +1,6 @@
 import logging
 
+import betterlogging as bl
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from tgbot.config import load_config
@@ -12,6 +13,8 @@ import asyncio
 
 
 logger = logging.getLogger(__name__)
+log_level = logging.INFO
+bl.basic_colorized_config(level=log_level)
 
 
 async def on_startup(bot: Bot, admin_ids: list[int]):
